@@ -4,18 +4,21 @@ import Navi from "./Navi";
 import ProductList from "./ProductList";
 
 function App() {
+  let productInfo = { title: "Product List" };
+  let categoryInfo = { title: "Category List" };
+  let naviInfo = { title: "Navi Component" };
   return (
     <div className="selam">
       <Container>
         <Row>
-          <Navi></Navi>
+          <Navi info={naviInfo}></Navi>
         </Row>
         <Row>
           <Col xs="3">
-            <ProductList title="Product List"></ProductList>
+            <ProductList info={productInfo}></ProductList>
           </Col>
           <Col xs="3">
-            <CategoryList title="Category List"> </CategoryList>
+            <CategoryList info={categoryInfo}> </CategoryList>
           </Col>
         </Row>
       </Container>
