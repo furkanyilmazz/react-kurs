@@ -9,7 +9,7 @@ export default class App extends Component {
   categoryInfo = { title: "Category List" };
   naviInfo = { title: "Navi Component" };
 
-  state = { currentCategory: "", products: [] };
+  state = { currentCategory: "", products: [], cart: [] };
 
   changeCategory = (category) => {
     this.setState({
@@ -34,13 +34,22 @@ export default class App extends Component {
       .then((data) => this.setState({ products: data }));
   };
 
+  addToCard = (product) => {
+    let newCart = this.state.cart;
+    var addedItem = newCart.find((c) => c.product.id === product.id);
+    if (addedItem) {
+      addedItem.quantity += 1;
+    } else {
+      newCart.push({ product: product, quantity: 1 });
+    }
+    this.setState({ cart: newCart });
+  };
+
   render() {
     return (
       <div className="selam">
         <Container>
-          <Row>
-            <Navi info={this.naviInfo}></Navi>
-          </Row>
+          <Navi cart={this.state.cart} info={this.naviInfo}></Navi>
           <Row>
             <Col xs="3">
               <CategoryList
@@ -51,6 +60,7 @@ export default class App extends Component {
             </Col>
             <Col xs="3">
               <ProductList
+                addToCard={this.addToCard}
                 products={this.state.products}
                 info={this.productInfo}
                 currentCategory={this.state.currentCategory}
